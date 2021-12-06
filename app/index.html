@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WOWOROOM</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="./assets/style/all.css">
+  </head>
+
+  <body>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+        <!-- logo -->
+        <a class="navbar-brand hvr-bounce-in text-black fw-bold fz-6" href="./index.html">
+          WOWOROOM
+        </a>
+        <!-- 漢堡 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- 導覽列選單 -->
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link hvr-grow fz-5 me-3" href="#advantages">
+                床墊優勢
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hvr-grow fz-5 me-3" href="#recommend">
+                好評推薦
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hvr-grow fz-5 me-3" href="#transport">
+                運送方式
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hvr-grow fz-5" href="#reserve">
+                立即預訂
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 主內容區：banner -->
+    <section class="container pt-7 pb-11">
+      <!-- 首頁 hero -->
+        <div class="hero position-relative | mb-11">
+            <img class="w-100" src="./assets/images/hero.png" alt="WOWOROOM banner">
+            <h3 class="position-absolute top-75 ps-9 text-white fz-9">
+                窩窩家居<br>
+                跟您一起品味生活
+            </h3>
+        </div>
+        <!-- 三大優勢 -->
+        <div id="advantages" class="advantages text-center">
+            <h2 class="fw-bold mb-7">床墊優勢</h2>
+            <div class="row">
+                <div class="col-4">
+                    <img class="mb-2" src="./assets/images/advantage1.png" alt="advantage1">
+                    <p class="fz-5">原木料環保</p>
+                </div>
+                <div class="col-4">
+                    <img class="mb-2" src="./assets/images/advantage2.png" alt="advantage2">
+                    <p class="fz-5">好收納</p>
+                </div>
+                <div class="col-4">
+                    <img class="mb-2" src="./assets/images/advantage3.png" alt="advantage3">
+                    <p class="fz-5">好組裝</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主內容區：家具比較表格 -->
+    <section class="bg-light">
+        <div class="container py-10">
+            <h2 class="fw-bold text-center mb-8">家具比較</h2>
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <table class="table text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col">窩窩系統模組家具</th>
+                            <th scope="col">
+                              <p class="text-dark">
+                                組合式家具
+                              </p>
+                            </th>
+                            <th scope="col">
+                              <p class="text-dark">
+                                實木家具
+                              </p>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">可單人自行組裝</th>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                              <td>不一定</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">可多次重複拆裝</th>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">床墊規格彈性大</th>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                              <td>不一定</td>
+                              <td>不一定</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">材質可長久使用</th>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                              <td></td>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th scope="row">小客車即可搬運</th>
+                              <td>
+                                <span class="material-icons-outlined text-primary">
+                                    check
+                                </span>
+                              </td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主內容區：好評推薦牆 -->
+    <section id="recommend" class="recommend bg-secondary">
+      <div class="container py-10">
+          <h2 class="fw-bold text-center mb-8 text-white">好評推薦</h2>
+          <!-- 評論牆 -->
+          <div class="recommendWall overflow-hidden">
+            <!-- 上排 -->
+            <div class="recommendTopSwiper swiper-container mb-5">
+              <ul class="swiper-wrapper">
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend1.png" alt="recommend1">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people1.png" alt="avatar1">
+                          <p class="fw-bold">
+                            王六角<br>
+                            <span class="text-primary">Jodan 雙人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">CP值很高。</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend2.png" alt="recommend2">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people2.png" alt="avatar2">
+                          <p class="fw-bold">
+                            Leaf<br>
+                            <span class="text-primary">Antony 雙人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">很喜歡～還有送三年保固～</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend3.png" alt="recommend3">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people3.png" alt="avatar3">
+                          <p class="fw-bold">
+                            美濃鄧子琪<br>
+                            <span class="text-primary">Charles 系列儲物組合</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">廚房必備美用品！</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend4.png" alt="recommend4">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people4.png" alt="avatar4">
+                          <p class="fw-bold">
+                            isRaynotArray<br>
+                            <span class="text-primary">Antony 透光窗簾</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">物超所值！</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend5.png" alt="recommend5">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people5.png" alt="avatar5">
+                          <p class="fw-bold">
+                            程鮭魚<br>
+                            <span class="text-primary">Louvre 單人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">租屋用剛剛好。</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 下排 -->
+            <div class="recommendBottomSwiper swiper-container">
+              <ul class="swiper-wrapper">
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend6.png" alt="recommend6">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people6.png" alt="avatar6">
+                          <p class="fw-bold">
+                            小杰<br>
+                            <span class="text-primary">Louvre 雙人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">非常舒適，有需要會再回購</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend7.png" alt="recommend7">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people7.png" alt="avatar7">
+                          <p class="fw-bold">
+                            江八角<br>
+                            <span class="text-primary">Charles 雙人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">品質不錯～</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend8.png" alt="recommend8">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people8.png" alt="avatar8">
+                          <p class="fw-bold">
+                            juni讚神<br>
+                            <span class="text-primary">Antony 床邊桌</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">讚ㄉ！</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend9.png" alt="recommend9">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people9.png" alt="avatar9">
+                          <p class="fw-bold">
+                            久安說安安<br>
+                            <span class="text-primary">Louvre 單人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">一個人躺剛剛好。</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide unselectable">
+                  <div class="card border-0 rounded-0">
+                    <div class="row g-0">
+                      <div class="col-4">
+                        <img class="unselectable" src="./assets/images/recommend10.png" alt="recommend10">
+                      </div>
+                      <div class="col-8 py-2">
+                        <div class="d-flex ai-c mb-2">
+                          <img class="avatar me-2" src="./assets/images/people10.png" alt="avatar10">
+                          <p class="fw-bold">
+                            PeiQun<br>
+                            <span class="text-primary">Antony 雙人床架</span>
+                          </p>
+                        </div>
+                        <p class="fw-bold">睡起來很舒適</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- 主內容區：運送方式 & 產品列表 -->
+    <section id="transport" class="transport container pt-8 pb-11">
+      <div class="text-center">
+          <h2 class="fw-bold mb-7">運送方式</h2>
+          <div class="row mb-12">
+              <div class="col-8 offset-2 d-flex jc-c ai-c">
+                <div>
+                  <span class="stepIcon material-icons mb-2">
+                    shopping_cart
+                  </span>
+                  <p class="fz-5">STEP.1</p>
+                  <p>選購商品</p>
+                </div>
+                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
+                  arrow_right
+                </span>
+                <div>
+                  <span class="stepIcon material-icons mb-2">
+                    format_list_bulleted
+                  </span>
+                  <p class="fz-5">STEP.2</p>
+                  <p>填寫預定資料</p>
+                </div>
+                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
+                  arrow_right
+                </span>
+                <div>
+                  <span class="stepIcon material-icons mb-2">
+                    done
+                  </span>
+                  <p class="fz-5">STEP.3</p>
+                  <p>預定成功</p>
+                </div>
+                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
+                  arrow_right
+                </span>
+                <div>
+                  <span class="stepIcon material-icons mb-2">
+                    email
+                  </span>
+                  <p class="fz-5">STEP.4</p>
+                  <p>Email 付款資訊</p>
+                </div>
+              </div>
+          </div>
+          <!-- 產品篩選器 -->
+          <div class="row mb-8">
+            <div class="col-3">
+              <select class="productsCategory form-select">
+              </select>
+            </div>
+          </div>
+          <!-- 購物車產品列表 -->
+          <div class="productsList row">
+            <!-- 測試用樣板 -->
+            <div class="col-6 col-md-4 col-lg-3 mb-7">
+              <div class="card rounded-0 mb-2">
+                <div class="productImg">
+                  <img class="w-100 h-100 img-cover" src="./assets/images/product1.png" alt="product">
+                </div>
+                <div class="btn_intoCart btn rounded-0 bg-black py-3">
+                  <p class="fz-5 text-white">放入購物車</p>
+                </div>
+                <span class="bg-black text-white py-2 px-6">新品</span>
+              </div>
+              <div class="text-start">
+                <p class="product_name fz-5 mb-2">
+                  Antony 雙人床架／雙人加大
+                </p>
+                <p class="product_oriPrice text-decoration-line-through">
+                  NT$18,000
+                </p>
+                <p class="product_Price fz-6">
+                  NT$12,000
+                </p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- 主內容區：購物車 -->
+    <section class="cart bg-light">
+      <div class="container py-10">
+          <h2 class="fw-bold text-center mb-8">我的購物車</h2>
+          <div class="row">
+              <div class="col-10 offset-1">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="width: 40%;">品項</th>
+                          <th scope="col" style="width: 15%;">單價</th>
+                          <th scope="col" style="width: 10%;">數量</th>
+                          <th scope="col" style="width: 15%;">金額</th>
+                          <th scope="col" style="width: 20%;"></th>
+                        </tr>
+                      </thead>
+                      <tbody class="cartList align-middle">
+                        <!-- 購物車品項列表 -->
+                        <!-- 測試用樣板 -->
+                        <tr>
+                          <th class="d-flex ai-c" scope="row">
+                            <img class="me-4" src="./assets/images/cart1.png" alt="cart-product">
+                            <p>Antony 雙人床架／雙人加大</p>
+                          </th>
+                          <td>
+                            NT$12,000
+                          </td>
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            NT$12,000
+                          </td>
+                          <td>
+                            <span class="material-icons fw-bold">
+                              clear
+                            </span>
+                          </td>
+                        </tr>
+                        <!-- 刪除所有品項 & 總金額計算 -->
+                        <tr class="border-light">
+                          <th scope="row">
+                            <div id="btn_deleteAll" class="btn btn-light fw-bold my-4">
+                              刪除所有品項
+                            </div>
+                          </th>
+                          <td>
+                          </td>
+                          <td>
+                          </td>
+                          <td class="fw-bold">
+                            總金額
+                          </td>
+                          <td class="fz-6">
+                            NT$13,980
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="reserve">
+      <div class="container py-10">
+          <h2 class="fw-bold text-center mb-8">填寫預訂資料</h2>
+          <div class="row">
+              <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <!-- 預定資料表單 -->
+                <form class="reserveForm">
+                  <div class="mb-3">
+                    <label for="fname" class="form-label">姓名</label>
+                    <div class="position-relative">
+                      <input name="fname" placeholder="請輸入姓名" type="text" class="form-control text-input">
+                      <!-- 警示訊息 -->
+                      <p id="fname" class="text-danger ms-2"></p>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="fphone" class="form-label">電話</label>
+                    <div class="position-relative">
+                      <input name="fphone" placeholder="請輸入電話" type="tel" class="form-control text-input">
+                      <!-- 警示訊息 -->
+                      <p id="fphone" class="text-danger ms-2"></p>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="femail" class="form-label">Email</label>
+                    <div class="position-relative">
+                      <input name="femail" placeholder="請輸入 Email" type="email" class="form-control text-input">
+                      <!-- 警示訊息 -->
+                      <p id="femail" class="text-danger ms-2"></p>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="faddress" class="form-label">寄送地址</label>
+                    <div class="position-relative">
+                      <input name="faddress" placeholder="請輸入寄送地址" type="text" class="form-control text-input">
+                      <!-- 警示訊息 -->
+                      <p id="faddress" class="text-danger ms-2"></p>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="tradeMethod" class="form-label">交易方式</label>
+                    <select id="tradeMethod" class="form-select">
+                      <option selected>ATM</option>
+                      <option value="信用卡">信用卡</option>
+                      <option value="超商付款">超商付款</option>
+                    </select>
+                  </div>
+                  <div class="text-center mt-10">
+                    <div id="sendOrder" class="btn btn-black w-75">送出預定資料</div>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- 頁尾 -->
+
+    <footer class="bg-black text-white py-3">
+      <div class="container d-flex jc-c ai-c">
+        WOWOROOM © 2021 All rights reserved.
+      </div>
+    </footer>
+
+
+  <!-- scripts -->
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <!-- D3 & C3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
+    <!-- Validate.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+    <!-- swiper -->
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <!-- mine -->
+    <script src="./assets/js/vendors.js"></script>
+    <script src="./assets/js/all.js"></script>
+
+    <script>
+      // 初始渲染
+      window.onload = getProducts();
+      renderCart();
+      sendOrder();
+      
+      // DOM
+      const productsCategory = document.querySelector('.productsCategory');
+
+      // 監聽
+      // 產品篩選器過濾產品列表
+      productsCategory.addEventListener('change',(e) => {
+        if(e.target.value === '全部'){
+          renderProducts(productsData);
+          return;
+        }
+        const data = productsData.filter(item => item.category === e.target.value);
+        renderProducts(data);
+      });
+      
+
+    </script>
+
+  </body>
+
+</html>
