@@ -3,18 +3,19 @@
 
 // 驗證
 var token_UID = "t5fZx20LStfPtkitAn2xrbhylAC2";
-var api_path = "sylviah"; // baseurl
+var api_path = "sylviah";
+var validHeader = {
+  headers: {
+    'Authorization': "".concat(token_UID)
+  }
+}; // baseurl
 
 var BEbaseURL = "https://livejs-api.hexschool.io/api/livejs/v1/admin/".concat(api_path, "/orders"); // 全域資料變數
 
 var ordersData = []; // 取得訂單列表
 
 function getOrderList() {
-  axios.get(BEbaseURL, {
-    headers: {
-      'Authorization': "".concat(token_UID)
-    }
-  }).then(function (res) {
+  axios.get(BEbaseURL, validHeader).then(function (res) {
     // 將取得的資料賦予全域變數
     ordersData = res.data.orders; // 初始渲染
 
@@ -34,7 +35,7 @@ function renderOrderList(data) {
     var productItems = item.products.map(function (el) {
       return el.title;
     }).join("<br>");
-    str += "\n        <tr>\n          <th scope=\"row\">\n            ".concat(item.id, "\n          </th>\n          <td>\n            ").concat(item.user.name, "<br>\n            ").concat(item.user.tel, "\n          </td>\n          <td>\n            ").concat(item.user.address, "\n          </td>\n          <td>\n            ").concat(item.user.email, "\n          </td>\n          <td>\n            ").concat(productItems, "\n          </td>\n          <td>\n            ").concat(item.createdAt, "\n          </td>\n          <td>\n              <p class=\"btn orderStatus link-info\" onclick=\"editStatus('").concat(item.id, "',").concat(item.paid, ");\" data-id=\"").concat(item.id, "\" data-status=\"").concat(item.paid, "\">\n                <u>").concat(item.paid ? '已處理' : '未處理', "</u>\n              </p>\n          </td>\n          <td>\n            <button type=\"button\" class=\"btn btn-danger\" onclick=\"delOrder('").concat(item.id, "');\">\u522A\u9664</button>\n          </td>\n        </tr>");
+    str += "\n        <tr>\n          <th scope=\"row\">\n            ".concat(item.id, "\n          </th>\n          <td>\n            ").concat(item.user.name, "<br>\n            ").concat(item.user.tel, "\n          </td>\n          <td>\n            ").concat(item.user.address, "\n          </td>\n          <td>\n            ").concat(item.user.email, "\n          </td>\n          <td>\n            ").concat(productItems, "\n          </td>\n          <td>\n            ").concat(item.createdAt, "\n          </td>\n          <td>\n              <p class=\"btn orderStatus link-info\" onclick=\"editStatus('").concat(item.id, "',").concat(item.paid, ");\">\n                <u>").concat(item.paid ? '已處理' : '未處理', "</u>\n              </p>\n          </td>\n          <td>\n            <button type=\"button\" class=\"btn btn-danger\" onclick=\"delOrder('").concat(item.id, "');\">\u522A\u9664</button>\n          </td>\n        </tr>");
   });
   orderList.innerHTML = str;
 } // 全產品類別營收比重：繪製 C3 圓餅圖
@@ -142,11 +143,7 @@ function editStatus(id, status) {
         "id": "".concat(id),
         "paid": false
       }
-    }, {
-      headers: {
-        'Authorization': "".concat(token_UID)
-      }
-    }).then(function (res) {
+    }, validHeader).then(function (res) {
       console.log(res.data.orders);
       ordersData = res.data.orders; // 重新渲染畫面
 
@@ -160,11 +157,7 @@ function editStatus(id, status) {
         "id": "".concat(id),
         "paid": true
       }
-    }, {
-      headers: {
-        'Authorization': "".concat(token_UID)
-      }
-    }).then(function (res) {
+    }, validHeader).then(function (res) {
       console.log(res.data.orders);
       ordersData = res.data.orders; // 重新渲染畫面
 
@@ -178,11 +171,7 @@ function editStatus(id, status) {
 
 function delOrder(id) {
   var endpoint = "".concat(BEbaseURL, "/").concat(id);
-  axios["delete"](endpoint, {
-    headers: {
-      'Authorization': "".concat(token_UID)
-    }
-  }).then(function (res) {
+  axios["delete"](endpoint, validHeader).then(function (res) {
     console.log(res.data.orders);
     ordersData = res.data.orders; // 重新渲染畫面
 
@@ -194,18 +183,19 @@ function delOrder(id) {
 
 
 function clearAllOrders() {
-  axios["delete"](BEbaseURL, {
-    headers: {
-      'Authorization': "".concat(token_UID)
-    }
-  }).then(function (res) {
-    console.log(res.data.orders);
-    ordersData = res.data.orders; // 重新渲染畫面
+  var clearConfirm = confirm('確定刪除全部訂單嗎？刪除後無法復原喔！');
 
-    renderOrderList(ordersData);
-  })["catch"](function (err) {
-    console.log(err.message);
-  });
+  if (clearConfirm) {
+    axios["delete"](BEbaseURL, validHeader).then(function (res) {
+      console.log(res.data.orders);
+      ordersData = res.data.orders; // 重新渲染畫面
+
+      renderOrderList(ordersData);
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
+    alert('已刪除全部訂單');
+  }
 }
 "use strict";
 
@@ -397,6 +387,10 @@ var constraints = {
   fphone: {
     presence: {
       message: "/必填！"
+    },
+    format: {
+      pattern: "[0-9]+",
+      message: "/請填入正確的電話或手機號碼格式。"
     }
   },
   femail: {
@@ -461,6 +455,29 @@ function sendOrder() {
     })["catch"](function (err) {
       console.log(err);
     });
+  });
+} // 前台：初始渲染
+
+
+function init_FE() {
+  // 取得產品列表
+  getProducts(); // 渲染購物車列表
+
+  renderCart(); // 監聽送出訂單資料按鈕
+
+  sendOrder(); // 監聽產品篩選器：過濾產品列表
+
+  var productsCategory = document.querySelector('.productsCategory');
+  productsCategory.addEventListener('change', function (e) {
+    if (e.target.value === '全部') {
+      renderProducts(productsData);
+      return;
+    }
+
+    var data = productsData.filter(function (item) {
+      return item.category === e.target.value;
+    });
+    renderProducts(data);
   });
 }
 "use strict";
