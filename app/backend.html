@@ -83,7 +83,7 @@
     <!-- 客戶訂單管理 -->
     <section class="container mb-10">
       <div class="text-end">
-        <div id="btn_clearOrder" class="btn btn-outline-black fw-bold mb-4">清除全部訂單</div>
+        <div id="btn_clearOrder" onclick="clearAllOrders();" class="btn btn-outline-black fw-bold mb-4">清除全部訂單</div>
       </div>
       <table class="table table-bordered">
           <thead>
@@ -149,18 +149,18 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
       <!-- swiper -->
       <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+      <!-- SweetAlert -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <!-- mine -->
       <script src="./assets/js/vendors.js"></script>
       <script src="./assets/js/all.js"></script>
 
       <script>
+        // 初始渲染
+        // 取得訂單列表
         window.onload = getOrderList();
-
-        // 監聽"清除全部訂單"按鈕
-        const btn_clearOrder = document.getElementById('btn_clearOrder');
-        btn_clearOrder.addEventListener('click',()=>{clearAllOrders();});
-
       </script>
+  
   </body>
 
 </html>

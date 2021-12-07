@@ -280,6 +280,10 @@ let constraints = {
   fphone: {
     presence: {
       message: "/必填！"
+    },
+    format: {
+      pattern: "[0-9]+",
+      message: "/請填入正確的電話或手機號碼格式。"
     }
   },
   femail: {
@@ -348,4 +352,25 @@ function sendOrder(){
           console.log(err);
       })
     });
+}
+
+// 前台：初始渲染
+function init_FE(){
+  // 取得產品列表
+  getProducts();
+  // 渲染購物車列表
+  renderCart();
+  // 監聽送出訂單資料按鈕
+  sendOrder();
+  
+  // 監聽產品篩選器：過濾產品列表
+  const productsCategory = document.querySelector('.productsCategory');
+  productsCategory.addEventListener('change',(e) => {
+    if(e.target.value === '全部'){
+      renderProducts(productsData);
+      return;
+    }
+    const data = productsData.filter(item => item.category === e.target.value);
+    renderProducts(data);
+  });
 }

@@ -1,6 +1,11 @@
 // 驗證
 const token_UID = "t5fZx20LStfPtkitAn2xrbhylAC2";
 const api_path = "sylviah";
+const validHeader = {
+  headers: {
+    'Authorization': `${token_UID}`
+  }
+}
 
 // baseurl
 const BEbaseURL = `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`;
@@ -10,11 +15,7 @@ let ordersData = [];
 
 // 取得訂單列表
 function getOrderList(){
-    axios.get(BEbaseURL,{
-        headers: {
-          'Authorization': `${token_UID}`
-        }
-    })
+    axios.get(BEbaseURL, validHeader)
     .then((res)=>{
         // 將取得的資料賦予全域變數
         ordersData = res.data.orders;
@@ -60,7 +61,7 @@ function renderOrderList(data){
             ${item.createdAt}
           </td>
           <td>
-              <p class="btn orderStatus link-info" onclick="editStatus('${item.id}',${item.paid});" data-id="${item.id}" data-status="${item.paid}">
+              <p class="btn orderStatus link-info" onclick="editStatus('${item.id}',${item.paid});">
                 <u>${item.paid?'已處理':'未處理'}</u>
               </p>
           </td>
@@ -179,12 +180,7 @@ function editStatus(id, status){
         "id": `${id}`,
         "paid": false
       }
-    },
-    {
-        headers: {
-          'Authorization': `${token_UID}`
-        }
-    })
+    },validHeader)
     .then((res)=>{
         console.log(res.data.orders);
         ordersData = res.data.orders;
@@ -200,12 +196,7 @@ function editStatus(id, status){
         "id": `${id}`,
         "paid": true
       }
-    },
-    {
-        headers: {
-          'Authorization': `${token_UID}`
-        }
-    })
+    },validHeader)
     .then((res)=>{
         console.log(res.data.orders);
         ordersData = res.data.orders;
@@ -222,12 +213,7 @@ function editStatus(id, status){
 // 刪除特定單筆訂單
 function delOrder(id){
   const endpoint = `${BEbaseURL}/${id}`
-  axios.delete(endpoint,
-  {
-      headers: {
-        'Authorization': `${token_UID}`
-      }
-  })
+  axios.delete(endpoint,validHeader)
   .then((res)=>{
       console.log(res.data.orders);
       ordersData = res.data.orders;
@@ -241,19 +227,19 @@ function delOrder(id){
 
 // 清除所有訂單
 function clearAllOrders(){
-  axios.delete(BEbaseURL,
-  {
-      headers: {
-        'Authorization': `${token_UID}`
-      }
-  })
-  .then((res)=>{
-      console.log(res.data.orders);
-      ordersData = res.data.orders;
-      // 重新渲染畫面
-      renderOrderList(ordersData);
-  })
-  .catch((err)=>{
-      console.log(err.message);
-  });
+  let clearConfirm = confirm('確定刪除全部訂單嗎？刪除後無法復原喔！');
+
+  if (clearConfirm) {
+    axios.delete(BEbaseURL,validHeader)
+    .then((res)=>{
+        console.log(res.data.orders);
+        ordersData = res.data.orders;
+        // 重新渲染畫面
+        renderOrderList(ordersData);
+    })
+    .catch((err)=>{
+        console.log(err.message);
+    });
+    alert('已刪除全部訂單');
+  }
 }

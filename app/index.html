@@ -609,25 +609,7 @@
 
     <script>
       // 初始渲染
-      window.onload = getProducts();
-      renderCart();
-      sendOrder();
-      
-      // DOM
-      const productsCategory = document.querySelector('.productsCategory');
-
-      // 監聽
-      // 產品篩選器過濾產品列表
-      productsCategory.addEventListener('change',(e) => {
-        if(e.target.value === '全部'){
-          renderProducts(productsData);
-          return;
-        }
-        const data = productsData.filter(item => item.category === e.target.value);
-        renderProducts(data);
-      });
-      
-
+      window.onload = init_FE();
     </script>
 
   </body>
