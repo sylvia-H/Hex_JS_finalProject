@@ -318,7 +318,7 @@ function sendOrder(){
     const reserveFormInputs = Array.from(document.querySelectorAll('.reserveForm input, .reserveForm select'));
 
     // 監聽：送出訂單按鈕
-    sendReserveForm.addEventListener('click',()=>{
+    sendReserveForm.addEventListener('click',(e)=>{
 
       // 表單驗證
       let errors = validate(reserveForm, constraints);
@@ -337,6 +337,9 @@ function sendOrder(){
         alert('再多逛一下，把喜歡的品項放進購物車喔！');
         return;
       }
+
+      // 防呆
+      e.target.setAttribute("disabled", "");
 
       // 驗證通過，送出訂單
       const endpoint = `${FEbaseURL}/orders`;
@@ -365,6 +368,9 @@ function sendOrder(){
           // 清空表單資料 & 重新渲染購物車列表
           reserveFormInputs.forEach(item => item.value = '');
           renderCart();
+
+          // 防呆解除
+          e.target.removeAttribute("disabled");
       })
       .catch((err)=>{
           console.log(err);
