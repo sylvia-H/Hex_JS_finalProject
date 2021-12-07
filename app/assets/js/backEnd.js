@@ -13,6 +13,7 @@ const BEbaseURL = `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_pat
 // 全域資料變數
 let ordersData = [];
 
+
 // 取得訂單列表
 function getOrderList(){
     axios.get(BEbaseURL, validHeader)
@@ -21,22 +22,20 @@ function getOrderList(){
         ordersData = res.data.orders;
 
         // 初始渲染
-        renderOrderList(ordersData);
-
-        //繪製 C3 圓餅圖
-        printCategoryPie();
+        init_BE();
     })
     .catch((err)=>{
         console.log(err.message);
     });
 }
 
+
 // 渲染訂單列表
-function renderOrderList(data){
+function renderOrderList(){
     const orderList = document.querySelector('.orderList');
     let str = "";
 
-    data.forEach(item => {
+    ordersData.forEach(item => {
         const productItems = item.products.map(el=>el.title).join("<br>");
 
         str += `
@@ -75,6 +74,7 @@ function renderOrderList(data){
 
 }
 
+
 // 全產品類別營收比重：繪製 C3 圓餅圖
 function printCategoryPie(){
     // 將 data 資料結構重組為 C3 要求的結構
@@ -110,10 +110,8 @@ function printCategoryPie(){
       }
     });
 
-    // 接著繪製全品項營收比重 C3 圓餅圖
-    printItemsPie();
-
 }
+
 
 // 全品項營收比重：繪製 C3 圓餅圖
 function printItemsPie(){
@@ -166,6 +164,7 @@ function printItemsPie(){
 
 }
 
+
 // 修改訂單已處理/未處理狀態
 function editStatus(id, status){
 
@@ -210,36 +209,82 @@ function editStatus(id, status){
   
 }
 
+
 // 刪除特定單筆訂單
 function delOrder(id){
   const endpoint = `${BEbaseURL}/${id}`
-  axios.delete(endpoint,validHeader)
-  .then((res)=>{
-      console.log(res.data.orders);
-      ordersData = res.data.orders;
-      // 重新渲染畫面
-      renderOrderList(ordersData);
+
+  // 使用 sweetalert 進行確認
+  swal({
+    title:"確定刪除此筆訂單嗎？",
+    text: "按下確定後資料會永久刪除",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
   })
-  .catch((err)=>{
-      console.log(err.message);
+  .then((willDelete) => {
+    if (willDelete) {
+      //使用者按下「確定」後執行刪除資料
+      axios.delete(endpoint,validHeader)
+      .then((res)=>{
+          console.log(res.data.orders);
+          ordersData = res.data.orders;
+          // 重新渲染畫面
+          init_BE();
+      })
+      .catch((err)=>{
+          console.log(err.message);
+      });
+      //刪除資料後跳出成功刪除視窗
+      swal("刪除完成!", "此筆訂單已刪除", {
+        icon: "success",
+      });
+    } else {
+      //使用者按下「取消」跳出視窗
+      swal("訂單未被刪除");
+    }
   });
 }
 
+
 // 清除所有訂單
 function clearAllOrders(){
-  let clearConfirm = confirm('確定刪除全部訂單嗎？刪除後無法復原喔！');
+  // 使用 sweetalert 進行確認
+  swal({
+    title:"確定刪除全部訂單嗎？",
+    text: "按下確定後資料會永久刪除",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      //使用者按下「確定」後執行刪除資料
+      axios.delete(BEbaseURL,validHeader)
+      .then((res)=>{
+          console.log(res.data.orders);
+          ordersData = res.data.orders;
+          // 重新渲染畫面
+          init_BE();
+      })
+      .catch((err)=>{
+          console.log(err.message);
+      });
+      //刪除資料後跳出成功刪除視窗
+      swal("刪除完成!", "訂單已經全部刪除", {
+        icon: "success",
+      });
+    } else {
+      //使用者按下「取消」跳出視窗
+      swal("訂單未被刪除");
+    }
+  });
+}
 
-  if (clearConfirm) {
-    axios.delete(BEbaseURL,validHeader)
-    .then((res)=>{
-        console.log(res.data.orders);
-        ordersData = res.data.orders;
-        // 重新渲染畫面
-        renderOrderList(ordersData);
-    })
-    .catch((err)=>{
-        console.log(err.message);
-    });
-    alert('已刪除全部訂單');
-  }
+
+// 後台：重新渲染畫面
+function init_BE(){
+  renderOrderList();
+  printCategoryPie();
+  printItemsPie();
 }

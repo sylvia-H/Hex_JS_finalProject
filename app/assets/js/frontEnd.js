@@ -9,6 +9,7 @@ const FEbaseURL = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_
 let productsData = [];
 let cartData = [];
 
+
 // 取得產品列表
 function getProducts(){
     const endpoint = `${FEbaseURL}/products`;
@@ -26,6 +27,7 @@ function getProducts(){
         console.log(err);
     });
 }
+
 
 // 渲染產品列表 & 產品篩選器
 function renderProducts(data){
@@ -63,6 +65,7 @@ function renderProducts(data){
     catchCartBtn();
 }
 
+
 // 渲染產品篩選器 productsCategory 裡面的選項
 function renderFilter(){
     let options = new Set();
@@ -77,6 +80,7 @@ function renderFilter(){
     productsCategory.innerHTML = optionStr;
 }
 
+
 // 取得"加入購物車"按鈕 & 設置監聽
 function catchCartBtn(){
     const btn_intoCart = Array.from(document.querySelectorAll('.btn_intoCart'));
@@ -86,6 +90,7 @@ function catchCartBtn(){
         });
     });
 }
+
 
 // 放入購物車
 function addCart(id){
@@ -114,6 +119,7 @@ function addCart(id){
         console.log(err);
     });
 }
+
 
 // 渲染購物車列表
 function renderCart(){
@@ -197,6 +203,7 @@ function renderCart(){
     });
 }
 
+
 // 修改特定品項數量
 function editQuantity(){
     const cartItem_quantity = Array.from(document.querySelectorAll('.cartItem_quantity'));
@@ -231,6 +238,7 @@ function editQuantity(){
     
 }
 
+
 // 刪除購物車特定品項
 function deleteCartItem(){
     const deleteCartItem = Array.from(document.querySelectorAll('.deleteCartItem'));
@@ -250,6 +258,7 @@ function deleteCartItem(){
     });
 
 }
+
 
 // 刪除購物車所有品項
 function deleteAll(){
@@ -344,15 +353,26 @@ function sendOrder(){
         })
       .then((res)=>{
           console.log(res);
+
+          // 成功送出訂單，sweetalert 跳出成功訊息
+          swal({
+            title: "成功！",
+            text: "已收到您的訂單，請耐心等候到貨。",
+            icon: "success",
+            button: "OK",
+          });
+
           // 清空表單資料 & 重新渲染購物車列表
           reserveFormInputs.forEach(item => item.value = '');
           renderCart();
       })
       .catch((err)=>{
           console.log(err);
-      })
+      });
+
     });
 }
+
 
 // 前台：初始渲染
 function init_FE(){
@@ -362,7 +382,6 @@ function init_FE(){
   renderCart();
   // 監聽送出訂單資料按鈕
   sendOrder();
-  
   // 監聽產品篩選器：過濾產品列表
   const productsCategory = document.querySelector('.productsCategory');
   productsCategory.addEventListener('change',(e) => {
