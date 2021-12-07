@@ -19,19 +19,17 @@ function getOrderList() {
     // 將取得的資料賦予全域變數
     ordersData = res.data.orders; // 初始渲染
 
-    renderOrderList(ordersData); //繪製 C3 圓餅圖
-
-    printCategoryPie();
+    init_BE();
   })["catch"](function (err) {
     console.log(err.message);
   });
 } // 渲染訂單列表
 
 
-function renderOrderList(data) {
+function renderOrderList() {
   var orderList = document.querySelector('.orderList');
   var str = "";
-  data.forEach(function (item) {
+  ordersData.forEach(function (item) {
     var productItems = item.products.map(function (el) {
       return el.title;
     }).join("<br>");
@@ -74,9 +72,7 @@ function printCategoryPie() {
       show: true //是否顯示項目
 
     }
-  }); // 接著繪製全品項營收比重 C3 圓餅圖
-
-  printItemsPie();
+  });
 } // 全品項營收比重：繪製 C3 圓餅圖
 
 
@@ -170,32 +166,72 @@ function editStatus(id, status) {
 
 
 function delOrder(id) {
-  var endpoint = "".concat(BEbaseURL, "/").concat(id);
-  axios["delete"](endpoint, validHeader).then(function (res) {
-    console.log(res.data.orders);
-    ordersData = res.data.orders; // 重新渲染畫面
+  var endpoint = "".concat(BEbaseURL, "/").concat(id); // 使用 sweetalert 進行確認
 
-    renderOrderList(ordersData);
-  })["catch"](function (err) {
-    console.log(err.message);
+  swal({
+    title: "確定刪除此筆訂單嗎？",
+    text: "按下確定後資料會永久刪除",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then(function (willDelete) {
+    if (willDelete) {
+      //使用者按下「確定」後執行刪除資料
+      axios["delete"](endpoint, validHeader).then(function (res) {
+        console.log(res.data.orders);
+        ordersData = res.data.orders; // 重新渲染畫面
+
+        init_BE();
+      })["catch"](function (err) {
+        console.log(err.message);
+      }); //刪除資料後跳出成功刪除視窗
+
+      swal("刪除完成!", "此筆訂單已刪除", {
+        icon: "success"
+      });
+    } else {
+      //使用者按下「取消」跳出視窗
+      swal("訂單未被刪除");
+    }
   });
 } // 清除所有訂單
 
 
 function clearAllOrders() {
-  var clearConfirm = confirm('確定刪除全部訂單嗎？刪除後無法復原喔！');
+  // 使用 sweetalert 進行確認
+  swal({
+    title: "確定刪除全部訂單嗎？",
+    text: "按下確定後資料會永久刪除",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then(function (willDelete) {
+    if (willDelete) {
+      //使用者按下「確定」後執行刪除資料
+      axios["delete"](BEbaseURL, validHeader).then(function (res) {
+        console.log(res.data.orders);
+        ordersData = res.data.orders; // 重新渲染畫面
 
-  if (clearConfirm) {
-    axios["delete"](BEbaseURL, validHeader).then(function (res) {
-      console.log(res.data.orders);
-      ordersData = res.data.orders; // 重新渲染畫面
+        init_BE();
+      })["catch"](function (err) {
+        console.log(err.message);
+      }); //刪除資料後跳出成功刪除視窗
 
-      renderOrderList(ordersData);
-    })["catch"](function (err) {
-      console.log(err.message);
-    });
-    alert('已刪除全部訂單');
-  }
+      swal("刪除完成!", "訂單已經全部刪除", {
+        icon: "success"
+      });
+    } else {
+      //使用者按下「取消」跳出視窗
+      swal("訂單未被刪除");
+    }
+  });
+} // 後台：重新渲染畫面
+
+
+function init_BE() {
+  renderOrderList();
+  printCategoryPie();
+  printItemsPie();
 }
 "use strict";
 
@@ -446,7 +482,14 @@ function sendOrder() {
         }
       }
     }).then(function (res) {
-      console.log(res); // 清空表單資料 & 重新渲染購物車列表
+      console.log(res); // 成功送出訂單，sweetalert 跳出成功訊息
+
+      swal({
+        title: "成功！",
+        text: "已收到您的訂單，請耐心等候到貨。",
+        icon: "success",
+        button: "OK"
+      }); // 清空表單資料 & 重新渲染購物車列表
 
       reserveFormInputs.forEach(function (item) {
         return item.value = '';
