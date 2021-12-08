@@ -341,7 +341,7 @@ function renderCart() {
     totalPrice += ',';
     totalPrice += cartData.finalTotal.toString().slice(-3); // 最後一列加上總金額
 
-    str += "\n        <tr class=\"border-light\">\n            <th scope=\"row\">\n            <div id=\"btn_deleteAll\" class=\"btn btn-light fw-bold my-4\">\n                \u522A\u9664\u6240\u6709\u54C1\u9805\n            </div>\n            </th>\n            <td>\n            </td>\n            <td>\n            </td>\n            <td class=\"fw-bold\">\n            \u7E3D\u91D1\u984D\n            </td>\n            <td class=\"fz-6\">\n            NT$".concat(totalPrice, "\n            </td>\n        </tr>");
+    str += "\n        <tr class=\"border-light\">\n            <th scope=\"row\">\n            <div id=\"btn_deleteAll\" class=\"btn btn-light fw-bold my-4\">\n                \u522A\u9664\u6240\u6709\u54C1\u9805\n            </div>\n            </th>\n            <td>\n            </td>\n            <td>\n            </td>\n            <td class=\"fw-bold\">\n            \u7E3D\u91D1\u984D\n            </td>\n            <td class=\"fz-5 fz-md-6\">\n            NT$".concat(totalPrice, "\n            </td>\n        </tr>");
     cartList.innerHTML = str; // 加上修改品項數量功能
 
     editQuantity(); // 加上刪除特定品項功能
