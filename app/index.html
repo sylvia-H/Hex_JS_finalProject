@@ -61,26 +61,34 @@
       <!-- 首頁 hero -->
         <div class="hero position-relative | mb-11">
             <img class="w-100" src="./assets/images/hero.png" alt="WOWOROOM banner">
-            <h3 class="position-absolute top-75 ps-9 text-white fz-9">
-                窩窩家居<br>
-                跟您一起品味生活
-            </h3>
+            <h2 class="d-none d-lg-block fz-9 position-absolute top-75 ps-9 text-white">
+                窩窩家居
+                <p class="fz-7">
+                  跟您一起品味生活
+                </p>
+            </h2>
+            <h2 class="d-block d-lg-none fz-7 py-2 | position-absolute top-50 start-50 translate-middle w-100 bg-black opacity-50 text-white text-center">
+                窩窩家居
+                <p class="fz-5">
+                  跟您一起品味生活
+                </p>
+            </h2>
         </div>
         <!-- 三大優勢 -->
         <div id="advantages" class="advantages text-center">
-            <h2 class="fw-bold mb-7">床墊優勢</h2>
+            <h3 class="fw-bold mb-7">床墊優勢</h3>
             <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
                     <img class="mb-2" src="./assets/images/advantage1.png" alt="advantage1">
-                    <p class="fz-5">原木料環保</p>
+                    <h4 class="fz-5">原木料環保</h4>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
                     <img class="mb-2" src="./assets/images/advantage2.png" alt="advantage2">
-                    <p class="fz-5">好收納</p>
+                    <h4 class="fz-5">好收納</h4>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
                     <img class="mb-2" src="./assets/images/advantage3.png" alt="advantage3">
-                    <p class="fz-5">好組裝</p>
+                    <h4 class="fz-5">好組裝</h4>
                 </div>
             </div>
         </div>
@@ -89,7 +97,7 @@
     <!-- 主內容區：家具比較表格 -->
     <section class="bg-light">
         <div class="container py-10">
-            <h2 class="fw-bold text-center mb-8">家具比較</h2>
+            <h3 class="fw-bold text-center mb-8">家具比較</h3>
             <div class="row">
                 <div class="col-8 offset-2">
                     <table class="table text-center">
@@ -174,7 +182,7 @@
     <!-- 主內容區：好評推薦牆 -->
     <section id="recommend" class="recommend bg-secondary">
       <div class="container py-10">
-          <h2 class="fw-bold text-center mb-8 text-white">好評推薦</h2>
+          <h3 class="fw-bold text-center mb-8 text-white">好評推薦</h3>
           <!-- 評論牆 -->
           <div class="recommendWall overflow-hidden">
             <!-- 上排 -->
@@ -384,47 +392,59 @@
     <!-- 主內容區：運送方式 & 產品列表 -->
     <section id="transport" class="transport container pt-8 pb-11">
       <div class="text-center">
-          <h2 class="fw-bold mb-7">運送方式</h2>
+          <h3 class="fw-bold mb-7">運送方式</h3>
           <div class="row mb-12">
-              <div class="col-8 offset-2 d-flex jc-c ai-c">
-                <div>
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              <div class="row">
+                <div class="col-3 position-relative">
                   <span class="stepIcon material-icons mb-2">
                     shopping_cart
                   </span>
-                  <p class="fz-5">STEP.1</p>
-                  <p>選購商品</p>
+                  <span class="position-absolute fz-7 fz-lg-9 top-50 start-100 translate-middle material-icons">
+                    arrow_right
+                  </span>
                 </div>
-                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
-                  arrow_right
-                </span>
-                <div>
+                <div class="col-3 position-relative">
                   <span class="stepIcon material-icons mb-2">
                     format_list_bulleted
                   </span>
-                  <p class="fz-5">STEP.2</p>
-                  <p>填寫預定資料</p>
+                  <span class="position-absolute fz-7 fz-lg-9 top-50 start-100 translate-middle material-icons">
+                    arrow_right
+                  </span>
                 </div>
-                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
-                  arrow_right
-                </span>
-                <div>
+                <div class="col-3 position-relative">
                   <span class="stepIcon material-icons mb-2">
                     done
                   </span>
-                  <p class="fz-5">STEP.3</p>
-                  <p>預定成功</p>
+                  <span class="position-absolute fz-7 fz-lg-9 top-50 start-100 translate-middle material-icons">
+                    arrow_right
+                  </span>
                 </div>
-                <span class="fz-9 material-icons pb-11 mx-1 mx-lg-5">
-                  arrow_right
-                </span>
-                <div>
+                <div class="col-3">
                   <span class="stepIcon material-icons mb-2">
                     email
                   </span>
-                  <p class="fz-5">STEP.4</p>
-                  <p>Email 付款資訊</p>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-3">
+                  <p class="fz-5">STEP.1</p>
+                  <p class="fz-3 fz-md-4">選購商品</p>
+                </div>
+                <div class="col-3">
+                  <p class="fz-5">STEP.2</p>
+                  <p class="fz-3 fz-md-4">填寫預定資料</p>
+                </div>
+                <div class="col-3">
+                  <p class="fz-5">STEP.3</p>
+                  <p class="fz-3 fz-md-4">預定成功</p>
+                </div>
+                <div class="col-3">
+                  <p class="fz-5">STEP.4</p>
+                  <p class="fz-3 fz-md-4">Email 付款資訊</p>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- 產品篩選器 -->
           <div class="row mb-8">
@@ -466,17 +486,17 @@
     <!-- 主內容區：購物車 -->
     <section class="cart bg-light">
       <div class="container py-10">
-          <h2 class="fw-bold text-center mb-8">我的購物車</h2>
+          <h3 class="fw-bold text-center mb-8">我的購物車</h3>
           <div class="row">
-              <div class="col-10 offset-1">
+              <div class="col-12 col-md-10 offset-md-1">
                   <table class="table">
                       <thead>
                         <tr>
                           <th scope="col" style="width: 40%;">品項</th>
                           <th scope="col" style="width: 15%;">單價</th>
-                          <th scope="col" style="width: 10%;">數量</th>
+                          <th scope="col" style="width: 12%;">數量</th>
                           <th scope="col" style="width: 15%;">金額</th>
-                          <th scope="col" style="width: 20%;"></th>
+                          <th scope="col" style="width: 18%;"></th>
                         </tr>
                       </thead>
                       <tbody class="cartList align-middle">
@@ -530,7 +550,7 @@
 
     <section id="reserve">
       <div class="container py-10">
-          <h2 class="fw-bold text-center mb-8">填寫預訂資料</h2>
+          <h3 class="fw-bold text-center mb-8">填寫預訂資料</h3>
           <div class="row">
               <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                 <!-- 預定資料表單 -->
