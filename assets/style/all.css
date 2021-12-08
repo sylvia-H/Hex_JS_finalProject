@@ -36175,7 +36175,7 @@ nav {
   font-size: 50px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .transport .stepIcon {
     padding: 20px;
     font-size: 40px;
