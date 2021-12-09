@@ -152,8 +152,10 @@ function printItemsPie(){
         "Charles 雙人床架": '#546A76',
         "Antony 床邊桌": '#88A0A8',
         "Louvre 單人床架": '#929487',
-        "Jordan 雙人床架／雙人加大": '#B4CEB3',
-        "Charles 系列儲物組合": '#EFDD8D',
+        "Louvre 雙人床架／雙人加大": '#B4CEB3',
+        "Antony 雙人床架／雙人加大": '#A85751',
+        "Jordan 雙人床架／雙人加大": '#C4F5FC',
+        "Charles 系列儲物組合": '#D57A66',
         "其他": '#EFDD8D'
       }
     },
