@@ -36139,6 +36139,24 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
 }
 
 /* Components */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-style::-webkit-scrollbar {
+  height: .3rem;
+  border-radius: .3rem;
+}
+
+.scrollbar-style::-webkit-scrollbar-track {
+  background: #6A33F8;
+}
+
+.scrollbar-style::-webkit-scrollbar-thumb {
+  border-radius: .25rem;
+  background: #301E5F;
+}
+
 /* Layout */
 nav {
   border-bottom: 40px solid #000;
@@ -36225,6 +36243,10 @@ nav {
 
 .transport .card .productImg:hover + span {
   display: none;
+}
+
+.cart {
+  overflow-y: auto;
 }
 
 .cartImg {
