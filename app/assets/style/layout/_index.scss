@@ -81,6 +81,7 @@ nav{
 
 // 購物車
 .cart{
+    overflow-y: auto;
     &Img{
         width: 80px;
         height: 80px;

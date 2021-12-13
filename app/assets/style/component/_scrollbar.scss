@@ -1,0 +1,20 @@
+.scrollbar{
+    &-none {
+		&::-webkit-scrollbar {
+				display: none;
+			}
+	}
+	&-style{
+		&::-webkit-scrollbar {
+			height: .3rem;
+            border-radius: .3rem;
+		}
+        &::-webkit-scrollbar-track {
+            background: $primary;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: .25rem;
+            background: $secondary;
+        }
+	}
+}
