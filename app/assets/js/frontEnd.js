@@ -177,12 +177,10 @@ function renderCart(){
             </th>
             <td>
             </td>
-            <td>
-            </td>
             <td class="fw-bold">
             總金額
             </td>
-            <td class="fz-5 fz-md-6">
+            <td colspan="2" class="fz-5 fz-md-6">
             NT$${totalPrice}
             </td>
         </tr>`;
