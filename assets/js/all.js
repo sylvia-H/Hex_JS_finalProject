@@ -297,16 +297,18 @@ function catchCartBtn() {
 
 
 function addCart(id) {
-  var endpoint = "".concat(FEbaseURL, "/carts");
+  var endpoint = "".concat(FEbaseURL, "/carts"); // 預設放入 1 件商品
+
   var itemNum = 1; // 確認購物車中是否已有相同品項
 
   if (cartData.carts.length) {
-    var hasItem = cartData.carts.filter(function (item) {
-      return item.product.id === id;
+    var hasItem = [];
+    hasItem = cartData.carts.filter(function (item) {
+      return item.product.id == id;
     });
 
-    if (hasItem) {
-      itemNum += 1;
+    if (hasItem.length) {
+      itemNum = hasItem[0].quantity + 1;
     }
   }
 
@@ -332,16 +334,9 @@ function renderCart() {
     var str = "";
     cartData.carts.forEach(function (item) {
       str += "\n            <tr>\n              <th class=\"d-flex ai-c\" scope=\"row\">\n                <div class=\"cartImg me-4\">\n                    <img class=\"w-100 h-100 img-cover\" src=\"".concat(item.product.images, "\" alt=\"cart-product\">\n                </div>\n                <p>").concat(item.product.title, "</p>\n              </th>\n              <td>\n                ").concat(item.product.origin_price, "\n              </td>\n              <td>\n                <input data-id=\"").concat(item.id, "\" class=\"cartItem_quantity form-control\" type=\"number\" value=\"").concat(item.quantity, "\">\n              </td>\n              <td>\n                ").concat(item.product.price, "\n              </td>\n              <td>\n                <span data-id=\"").concat(item.id, "\" class=\"deleteCartItem material-icons fw-bold\">\n                  clear\n                </span>\n              </td>\n            </tr>");
-    }); // 將最終金額加上千位數符號
+    }); // 將最終金額加上千分位符號
 
-    var totalPrice = ""; // splice 方法不知為何失效，只好先用土法煉鋼
-    // const totalPrice = data.finalTotal;
-    // let num = totalPrice.toString().split('');
-    // console.log(num.splice(-3, 3, ",").join(''));
-
-    totalPrice += cartData.finalTotal.toString().slice(0, -3);
-    totalPrice += ',';
-    totalPrice += cartData.finalTotal.toString().slice(-3); // 最後一列加上總金額
+    var totalPrice = toTenPercentile(cartData.finalTotal); // 最後一列加上總金額
 
     str += "\n        <tr class=\"border-light\">\n            <th scope=\"row\">\n            <div id=\"btn_deleteAll\" class=\"btn btn-light fw-bold my-4\">\n                \u522A\u9664\u6240\u6709\u54C1\u9805\n            </div>\n            </th>\n            <td>\n            </td>\n            <td class=\"fw-bold\">\n            \u7E3D\u91D1\u984D\n            </td>\n            <td colspan=\"2\" class=\"fz-5 fz-md-6\">\n            NT$".concat(totalPrice, "\n            </td>\n        </tr>");
     cartList.innerHTML = str; // 加上修改品項數量功能
@@ -354,6 +349,13 @@ function renderCart() {
   })["catch"](function (err) {
     console.log(err);
   });
+} // 轉換千分位符號
+
+
+function toTenPercentile(num) {
+  var parts = num.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return parts.join('.');
 } // 修改特定品項數量
 
 
@@ -429,6 +431,11 @@ var constraints = {
     format: {
       pattern: "[0-9]+",
       message: "/請填入正確的電話或手機號碼格式。"
+    },
+    length: {
+      // 最少 9 碼
+      minimum: 9,
+      message: "/電話號碼的長度不太對喔！市內電話請加上區域號碼。"
     }
   },
   femail: {
