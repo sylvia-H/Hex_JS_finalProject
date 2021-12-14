@@ -95,15 +95,17 @@ function catchCartBtn(){
 // 放入購物車
 function addCart(id){
     const endpoint = `${FEbaseURL}/carts`;
+
+    // 預設放入 1 件商品
     let itemNum = 1;
 
     // 確認購物車中是否已有相同品項
     if(cartData.carts.length){
-        let hasItem = cartData.carts.filter(item => item.product.id === id);
-        if(hasItem){
-            itemNum += 1;
+        let hasItem = [];
+        hasItem = cartData.carts.filter(item => item.product.id == id);
+        if(hasItem.length){
+          itemNum = hasItem[0].quantity + 1;
         }
-
     }
 
     axios.post(endpoint, {
@@ -157,15 +159,8 @@ function renderCart(){
             </tr>`;
         });
 
-        // 將最終金額加上千位數符號
-        let totalPrice = "";
-        // splice 方法不知為何失效，只好先用土法煉鋼
-        // const totalPrice = data.finalTotal;
-        // let num = totalPrice.toString().split('');
-        // console.log(num.splice(-3, 3, ",").join(''));
-        totalPrice += cartData.finalTotal.toString().slice(0,-3);
-        totalPrice += ',';
-        totalPrice += cartData.finalTotal.toString().slice(-3);
+        // 將最終金額加上千分位符號
+        let totalPrice = toTenPercentile(cartData.finalTotal);
 
         // 最後一列加上總金額
         str += `
@@ -199,6 +194,13 @@ function renderCart(){
     .catch((err)=>{
         console.log(err);
     });
+}
+
+// 轉換千分位符號
+function toTenPercentile(num){
+  var parts = num.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return parts.join('.');
 }
 
 
@@ -291,6 +293,11 @@ let constraints = {
     format: {
       pattern: "[0-9]+",
       message: "/請填入正確的電話或手機號碼格式。"
+    },
+    length: {
+      // 最少 9 碼
+      minimum: 9,
+      message: "/電話號碼的長度不太對喔！市內電話請加上區域號碼。"
     }
   },
   femail: {
