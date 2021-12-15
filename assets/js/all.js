@@ -33,9 +33,22 @@ function renderOrderList() {
     var productItems = item.products.map(function (el) {
       return el.title;
     }).join("<br>");
-    str += "\n        <tr>\n          <th scope=\"row\">\n            ".concat(item.id, "\n          </th>\n          <td>\n            ").concat(item.user.name, "<br>\n            ").concat(item.user.tel, "\n          </td>\n          <td>\n            ").concat(item.user.address, "\n          </td>\n          <td>\n            ").concat(item.user.email, "\n          </td>\n          <td>\n            ").concat(productItems, "\n          </td>\n          <td>\n            ").concat(item.createdAt, "\n          </td>\n          <td>\n              <p class=\"btn orderStatus link-info\" onclick=\"editStatus('").concat(item.id, "',").concat(item.paid, ");\">\n                <u>").concat(item.paid ? '已處理' : '未處理', "</u>\n              </p>\n          </td>\n          <td>\n            <button type=\"button\" class=\"btn btn-danger\" onclick=\"delOrder('").concat(item.id, "');\">\u522A\u9664</button>\n          </td>\n        </tr>");
+    str += "\n        <tr>\n          <th scope=\"row\">\n            ".concat(item.id, "\n          </th>\n          <td>\n            ").concat(item.user.name, "<br>\n            ").concat(item.user.tel, "\n          </td>\n          <td>\n            ").concat(item.user.address, "\n          </td>\n          <td>\n            ").concat(item.user.email, "\n          </td>\n          <td>\n            ").concat(productItems, "\n          </td>\n          <td>\n            ").concat(transferDate(item.createdAt * 1000), "\n          </td>\n          <td>\n              <p class=\"btn orderStatus link-info\" onclick=\"editStatus('").concat(item.id, "',").concat(item.paid, ");\">\n                <u>").concat(item.paid ? '已處理' : '未處理', "</u>\n              </p>\n          </td>\n          <td>\n            <button type=\"button\" class=\"btn btn-danger\" onclick=\"delOrder('").concat(item.id, "');\">\u522A\u9664</button>\n          </td>\n        </tr>");
   });
   orderList.innerHTML = str;
+} // 訂單日期轉換
+
+
+function transferDate(dateNum) {
+  var str = "";
+  var orderDate = new Date(dateNum);
+  var year = orderDate.getFullYear();
+  var month = orderDate.getMonth() + 1;
+  var date = orderDate.getDate();
+  var hours = orderDate.getHours();
+  var minutes = orderDate.getMinutes();
+  str = "".concat(year, "/").concat(month, "/").concat(date, "<br>").concat(hours, ":").concat(minutes);
+  return str;
 } // 全產品類別營收比重：繪製 C3 圓餅圖
 
 
@@ -142,7 +155,6 @@ function editStatus(id, status) {
         "paid": false
       }
     }, validHeader).then(function (res) {
-      console.log(res.data.orders);
       ordersData = res.data.orders; // 重新渲染畫面
 
       renderOrderList(ordersData);
@@ -156,7 +168,6 @@ function editStatus(id, status) {
         "paid": true
       }
     }, validHeader).then(function (res) {
-      console.log(res.data.orders);
       ordersData = res.data.orders; // 重新渲染畫面
 
       renderOrderList(ordersData);
@@ -180,7 +191,6 @@ function delOrder(id) {
     if (willDelete) {
       //使用者按下「確定」後執行刪除資料
       axios["delete"](endpoint, validHeader).then(function (res) {
-        console.log(res.data.orders);
         ordersData = res.data.orders; // 重新渲染畫面
 
         init_BE();
@@ -211,7 +221,6 @@ function clearAllOrders() {
     if (willDelete) {
       //使用者按下「確定」後執行刪除資料
       axios["delete"](BEbaseURL, validHeader).then(function (res) {
-        console.log(res.data.orders);
         ordersData = res.data.orders; // 重新渲染畫面
 
         init_BE();
@@ -326,26 +335,36 @@ function addCart(id) {
 
 
 function renderCart() {
+  var cartSection = document.querySelector('.cart');
+  var reserveSection = document.getElementById('reserve');
   var endpoint = "".concat(FEbaseURL, "/carts");
   axios.get(endpoint).then(function (res) {
     // 將取得的資料賦予全域變數
     cartData = res.data;
-    var cartList = document.querySelector('.cartList');
-    var str = "";
-    cartData.carts.forEach(function (item) {
-      str += "\n            <tr>\n              <th class=\"d-flex ai-c\" scope=\"row\">\n                <div class=\"cartImg me-4\">\n                    <img class=\"w-100 h-100 img-cover\" src=\"".concat(item.product.images, "\" alt=\"cart-product\">\n                </div>\n                <p>").concat(item.product.title, "</p>\n              </th>\n              <td>\n                ").concat(item.product.origin_price, "\n              </td>\n              <td>\n                <input data-id=\"").concat(item.id, "\" class=\"cartItem_quantity form-control\" type=\"number\" value=\"").concat(item.quantity, "\">\n              </td>\n              <td>\n                ").concat(item.product.price, "\n              </td>\n              <td>\n                <span data-id=\"").concat(item.id, "\" class=\"deleteCartItem material-icons fw-bold\">\n                  clear\n                </span>\n              </td>\n            </tr>");
-    }); // 將最終金額加上千分位符號
 
-    var totalPrice = toTenPercentile(cartData.finalTotal); // 最後一列加上總金額
+    if (cartData.carts.length == 0) {
+      cartSection.classList.add('d-none');
+      reserveSection.classList.add('d-none');
+    } else {
+      cartSection.classList.remove('d-none');
+      reserveSection.classList.remove('d-none');
+      var cartList = document.querySelector('.cartList');
+      var str = "";
+      cartData.carts.forEach(function (item) {
+        str += "\n            <tr>\n              <th class=\"d-flex ai-c\" scope=\"row\">\n                <div class=\"cartImg me-4\">\n                    <img class=\"w-100 h-100 img-cover\" src=\"".concat(item.product.images, "\" alt=\"cart-product\">\n                </div>\n                <p>").concat(item.product.title, "</p>\n              </th>\n              <td>\n                ").concat(item.product.origin_price, "\n              </td>\n              <td>\n                <input data-id=\"").concat(item.id, "\" class=\"cartItem_quantity form-control\" type=\"number\" value=\"").concat(item.quantity, "\">\n              </td>\n              <td>\n                ").concat(item.product.price, "\n              </td>\n              <td>\n                <span data-id=\"").concat(item.id, "\" class=\"deleteCartItem material-icons fw-bold\">\n                  clear\n                </span>\n              </td>\n            </tr>");
+      }); // 將最終金額加上千分位符號
 
-    str += "\n        <tr class=\"border-light\">\n            <th scope=\"row\">\n            <div id=\"btn_deleteAll\" class=\"btn btn-light fw-bold my-4\">\n                \u522A\u9664\u6240\u6709\u54C1\u9805\n            </div>\n            </th>\n            <td>\n            </td>\n            <td class=\"fw-bold\">\n            \u7E3D\u91D1\u984D\n            </td>\n            <td colspan=\"2\" class=\"fz-5 fz-md-6\">\n            NT$".concat(totalPrice, "\n            </td>\n        </tr>");
-    cartList.innerHTML = str; // 加上修改品項數量功能
+      var totalPrice = toTenPercentile(cartData.finalTotal); // 最後一列加上總金額
 
-    editQuantity(); // 加上刪除特定品項功能
+      str += "\n        <tr class=\"border-light\">\n            <th scope=\"row\">\n            <div id=\"btn_deleteAll\" class=\"btn btn-light fw-bold my-4\">\n                \u522A\u9664\u6240\u6709\u54C1\u9805\n            </div>\n            </th>\n            <td>\n            </td>\n            <td class=\"fw-bold\">\n            \u7E3D\u91D1\u984D\n            </td>\n            <td colspan=\"2\" class=\"fz-5 fz-md-6\">\n            NT$".concat(totalPrice, "\n            </td>\n        </tr>");
+      cartList.innerHTML = str; // 加上修改品項數量功能
 
-    deleteCartItem(); // 加上刪除所有品項功能
+      editQuantity(); // 加上刪除特定品項功能
 
-    deleteAll();
+      deleteCartItem(); // 加上刪除所有品項功能
+
+      deleteAll();
+    }
   })["catch"](function (err) {
     console.log(err);
   });
@@ -365,7 +384,6 @@ function editQuantity() {
     el.addEventListener('change', function () {
       var id = el.dataset.id;
       var num = parseInt(el.value);
-      console.log(num);
 
       if (num <= 0) {
         alert('如果不想要這件商品，請直接按刪除喔，謝謝您！');
@@ -456,14 +474,18 @@ var constraints = {
 function sendOrder() {
   var sendReserveForm = document.getElementById('sendOrder');
   var reserveForm = document.querySelector('.reserveForm');
-  var reserveFormInputs = Array.from(document.querySelectorAll('.reserveForm input, .reserveForm select')); // 監聽：送出訂單按鈕
+  var reserveFormInputs = Array.from(document.querySelectorAll('.reserveForm input, .reserveForm select'));
+  var fname = document.getElementById('fname');
+  var fphone = document.getElementById('fphone');
+  var femail = document.getElementById('femail');
+  var faddress = document.getElementById('faddress');
+  var warningMsg = [fname, fphone, femail, faddress]; // 監聽：送出訂單按鈕
 
   sendReserveForm.addEventListener('click', function (e) {
     // 表單驗證
     var errors = validate(reserveForm, constraints);
 
     if (errors) {
-      console.log(errors);
       Object.keys(errors).forEach(function (key) {
         var targetElement = document.getElementById(key);
         var msg = errors[key][0].split('/')[1];
@@ -493,8 +515,7 @@ function sendOrder() {
         }
       }
     }).then(function (res) {
-      console.log(res); // 成功送出訂單，sweetalert 跳出成功訊息
-
+      // 成功送出訂單，sweetalert 跳出成功訊息
       swal({
         title: "成功！",
         text: "已收到您的訂單，請耐心等候到貨。",
@@ -505,7 +526,11 @@ function sendOrder() {
       reserveFormInputs.forEach(function (item) {
         return item.value = '';
       });
-      renderCart(); // 防呆解除
+      renderCart(); // 清空警示訊息
+
+      warningMsg.forEach(function (el) {
+        return el.innerHTML = "";
+      }); // 防呆解除
 
       e.target.removeAttribute("disabled");
     })["catch"](function (err) {
