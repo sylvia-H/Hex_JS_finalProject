@@ -125,12 +125,22 @@ function addCart(id){
 
 // 渲染購物車列表
 function renderCart(){
-    const endpoint = `${FEbaseURL}/carts`;
+  const cartSection = document.querySelector('.cart');
+  const reserveSection = document.getElementById('reserve');
 
-    axios.get(endpoint)
-    .then((res)=>{
-        // 將取得的資料賦予全域變數
-        cartData = res.data;
+  const endpoint = `${FEbaseURL}/carts`;
+
+  axios.get(endpoint)
+  .then((res)=>{
+      // 將取得的資料賦予全域變數
+      cartData = res.data;
+
+      if(cartData.carts.length == 0){
+        cartSection.classList.add('d-none');
+        reserveSection.classList.add('d-none');
+      } else {
+        cartSection.classList.remove('d-none');
+        reserveSection.classList.remove('d-none');
         const cartList = document.querySelector('.cartList');
         let str = "";
         cartData.carts.forEach(item => {
@@ -158,10 +168,10 @@ function renderCart(){
               </td>
             </tr>`;
         });
-
+  
         // 將最終金額加上千分位符號
         let totalPrice = toTenPercentile(cartData.finalTotal);
-
+  
         // 最後一列加上總金額
         str += `
         <tr class="border-light">
@@ -179,21 +189,22 @@ function renderCart(){
             NT$${totalPrice}
             </td>
         </tr>`;
-
+  
         cartList.innerHTML = str;
-
+  
         // 加上修改品項數量功能
         editQuantity();
-
+  
         // 加上刪除特定品項功能
         deleteCartItem();
-
+  
         // 加上刪除所有品項功能
         deleteAll();
-    })
-    .catch((err)=>{
-        console.log(err);
-    });
+      }
+  })
+  .catch((err)=>{
+      console.log(err);
+  });
 }
 
 // 轉換千分位符號
@@ -211,7 +222,6 @@ function editQuantity(){
         el.addEventListener('change',() => {
             const id = el.dataset.id;
             const num = parseInt(el.value);
-            console.log(num);
 
             if(num<=0){
                 alert('如果不想要這件商品，請直接按刪除喔，謝謝您！');
@@ -321,6 +331,11 @@ function sendOrder(){
     const sendReserveForm = document.getElementById('sendOrder');
     const reserveForm = document.querySelector('.reserveForm');
     const reserveFormInputs = Array.from(document.querySelectorAll('.reserveForm input, .reserveForm select'));
+    const fname = document.getElementById('fname');
+    const fphone = document.getElementById('fphone');
+    const femail = document.getElementById('femail');
+    const faddress = document.getElementById('faddress');
+    const warningMsg = [fname, fphone, femail, faddress];
 
     // 監聽：送出訂單按鈕
     sendReserveForm.addEventListener('click',(e)=>{
@@ -328,7 +343,6 @@ function sendOrder(){
       // 表單驗證
       let errors = validate(reserveForm, constraints);
       if(errors){
-        console.log(errors);
         Object.keys(errors).forEach(key=>{
           const targetElement = document.getElementById(key);
           const msg = errors[key][0].split('/')[1];
@@ -360,8 +374,6 @@ function sendOrder(){
           }
         })
       .then((res)=>{
-          console.log(res);
-
           // 成功送出訂單，sweetalert 跳出成功訊息
           swal({
             title: "成功！",
@@ -373,6 +385,9 @@ function sendOrder(){
           // 清空表單資料 & 重新渲染購物車列表
           reserveFormInputs.forEach(item => item.value = '');
           renderCart();
+
+          // 清空警示訊息
+          warningMsg.forEach(el => el.innerHTML="");
 
           // 防呆解除
           e.target.removeAttribute("disabled");

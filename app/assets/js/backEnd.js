@@ -57,7 +57,7 @@ function renderOrderList(){
             ${productItems}
           </td>
           <td>
-            ${item.createdAt}
+            ${transferDate(item.createdAt*1000)}
           </td>
           <td>
               <p class="btn orderStatus link-info" onclick="editStatus('${item.id}',${item.paid});">
@@ -72,6 +72,19 @@ function renderOrderList(){
 
     orderList.innerHTML = str;
 
+}
+
+// 訂單日期轉換
+function transferDate(dateNum){
+  let str = "";
+  const orderDate = new Date(dateNum);
+  const year = orderDate.getFullYear();
+  const month = orderDate.getMonth() + 1;
+  const date = orderDate.getDate();
+  const hours = orderDate.getHours();
+  const minutes = orderDate.getMinutes();
+  str = `${year}/${month}/${date}<br>${hours}:${minutes}`;
+  return str;
 }
 
 
@@ -183,7 +196,6 @@ function editStatus(id, status){
       }
     },validHeader)
     .then((res)=>{
-        console.log(res.data.orders);
         ordersData = res.data.orders;
         // 重新渲染畫面
         renderOrderList(ordersData);
@@ -199,7 +211,6 @@ function editStatus(id, status){
       }
     },validHeader)
     .then((res)=>{
-        console.log(res.data.orders);
         ordersData = res.data.orders;
         // 重新渲染畫面
         renderOrderList(ordersData);
@@ -229,7 +240,6 @@ function delOrder(id){
       //使用者按下「確定」後執行刪除資料
       axios.delete(endpoint,validHeader)
       .then((res)=>{
-          console.log(res.data.orders);
           ordersData = res.data.orders;
           // 重新渲染畫面
           init_BE();
@@ -264,7 +274,6 @@ function clearAllOrders(){
       //使用者按下「確定」後執行刪除資料
       axios.delete(BEbaseURL,validHeader)
       .then((res)=>{
-          console.log(res.data.orders);
           ordersData = res.data.orders;
           // 重新渲染畫面
           init_BE();
