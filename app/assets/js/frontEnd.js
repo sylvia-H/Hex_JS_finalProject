@@ -301,13 +301,9 @@ let constraints = {
       message: "/必填！"
     },
     format: {
-      pattern: "[0-9]+",
+      // 開頭必須是 + （國碼）或 0（區碼），後接至少 7 碼數字
+      pattern: /(\++|[0]+)\d{7,}/,
       message: "/請填入正確的電話或手機號碼格式。"
-    },
-    length: {
-      // 最少 9 碼
-      minimum: 9,
-      message: "/電話號碼的長度不太對喔！市內電話請加上區域號碼。"
     }
   },
   femail: {
