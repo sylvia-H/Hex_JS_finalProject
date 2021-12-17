@@ -335,6 +335,9 @@ function sendOrder(){
 
     // 監聽：送出訂單按鈕
     sendReserveForm.addEventListener('click',(e)=>{
+      
+      // 清空警示訊息
+      warningMsg.forEach(el => el.innerHTML="");
 
       // 表單驗證
       let errors = validate(reserveForm, constraints);
