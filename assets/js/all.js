@@ -478,7 +478,11 @@ function sendOrder() {
   var warningMsg = [fname, fphone, femail, faddress]; // 監聽：送出訂單按鈕
 
   sendReserveForm.addEventListener('click', function (e) {
-    // 表單驗證
+    // 清空警示訊息
+    warningMsg.forEach(function (el) {
+      return el.innerHTML = "";
+    }); // 表單驗證
+
     var errors = validate(reserveForm, constraints);
 
     if (errors) {
